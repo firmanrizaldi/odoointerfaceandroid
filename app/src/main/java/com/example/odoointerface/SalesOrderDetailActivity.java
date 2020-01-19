@@ -38,7 +38,7 @@ public class SalesOrderDetailActivity extends AppCompatActivity {
     private String serverAddress;
     private String database;
 
-    private long searchTaskId, searchSOlineTaskId;
+    private long searchTaskId, searchSOlineTaskId, createTaskId;
     private String name;
     private SalesOrder salesOrder;
 
@@ -148,10 +148,36 @@ public class SalesOrderDetailActivity extends AppCompatActivity {
 
     public void onCreateSalesOrder(View view) {
 
+
+        final List salesOrderLine = new ArrayList() ;
+        int size = salesOrderLines.size() ;
+
+        for(int i=0; i<size; i++){
+            final int finalI = i ;
+            salesOrderLine.add(Arrays.asList(
+                    0,0, new HashMap(){{
+                        put("product_id",salesOrderLines.get(finalI).getProduct_id()) ;
+                        put("product_uom_qty",salesOrderLines.get(finalI).getProduct_uom_qty()) ;
+                        put("product_uom_id",salesOrderLines.get(finalI).getProduct_uom_id()) ;
+                        put("price_unit",salesOrderLines.get(finalI).getPrice_unit()) ;
+
+
+                    }}
+            )) ;
+        }
+
         List data = Arrays.asList(new HashMap() {{
             put("date_order", date);
             put("partner_id", partner_id);
-        }};
+            put("order_line",salesOrderLine) ;
+        }});
+
+        createTaskId = odoo.create(listener,
+                database,
+                uid,
+                password,
+                "sale.order",
+                data);
 
     }
 
@@ -257,6 +283,13 @@ public class SalesOrderDetailActivity extends AppCompatActivity {
                     });
                 } else {
                     Toast.makeText(SalesOrderDetailActivity.this, "Sales Order not found", Toast.LENGTH_LONG).show();
+                }
+            } else if (id == createTaskId) {
+                String createResult = result.toString() ;
+                if(createResult != null){
+                    Toast.makeText(SalesOrderDetailActivity.this, "Sales Order Berhasil dibuat", Toast.LENGTH_LONG).show();
+                } else {
+
                 }
             }
 
