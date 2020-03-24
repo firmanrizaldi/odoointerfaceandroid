@@ -29,4 +29,8 @@ public class MenuActivity extends AppCompatActivity {
     public void onProduct(View view) {
         startActivity(new Intent(MenuActivity.this, ProductListActivity.class));
     }
+
+    public void onAbsenSync(View view) {
+        startActivity(new Intent(MenuActivity.this, Activity_attendance.class));
+    }
 }

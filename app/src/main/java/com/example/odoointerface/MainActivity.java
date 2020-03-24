@@ -33,10 +33,10 @@ public class MainActivity extends AppCompatActivity {
         etDatabase = findViewById(R.id.etDatabase) ;
         etUsername = findViewById(R.id.etUsername) ;
         etPassword = findViewById(R.id.etPassword) ;
-        etServerUrl.setText("http://13.229.202.100:8069");
-        etDatabase.setText("and");
+        etServerUrl.setText("http://odoodev.jeera.id:8070");
+        etDatabase.setText("hr_jeera");
         etUsername.setText("admin");
-        etPassword.setText("admin");
+        etPassword.setText("jeera123");
 
     }
 
